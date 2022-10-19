@@ -3,7 +3,12 @@ import React from "react";
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { result: "544" };
+    this.state = { expression: "", result: "544" };
+    this.clearResult = this.clearResult.bind(this);
+  }
+
+  clearResult() {
+    this.setState({ result: "0" });
   }
 
   render() {
@@ -11,7 +16,7 @@ class Calculator extends React.Component {
       <div className="Calculator">
         <div id="title">ReactJS Calculator</div>
         <div id="display-screen">
-          <div id="display-result">34+56=54</div> {/* optional */}
+          {/* <div id="display-result">34+56=54</div> */}
           <div id="display">{this.state.result}</div>
         </div>
         <div id="clear">AC</div>

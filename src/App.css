@@ -18,11 +18,13 @@ body {
   background-color: #CCC;
   height:700px;
   width:400px;
-  border-radius: 10px;
+  border-radius: 15px;
   font-weight:900;
   font-size:1.5em;
   z-index:100;
-  border:1px solid #222;
+  border:15px solid #555;
+  background-color:#555;
+  box-shadow: 5px 3px 6px 1px rgba(0, 0, 0, 1);
 }
 
 .Calculator > div {
@@ -30,12 +32,13 @@ body {
   justify-content:center;
   align-items:center;
   border:1px solid #222;
+  background-color:darkgray;
 }
 
 
 #title {
   grid-column: 1 / span 4;
-  background-color:lightgoldenrodyellow;
+  background-color:lightseagreen;
   border-radius:10px 10px 0px 0px;
 }
 
@@ -74,4 +77,15 @@ body {
 
 #divide, #multiply, #subtract, #add {
   background-color:#999;
+}
+#clear:active, #divide:active, #multiply:active, #add:active, #subtract:active, #one:active, #two:active, #three:active, #four:active, #five:active, #six:active, #seven:active, #eight:active, #nine:active, #zero:active, #equals:active, #decimal:active {
+  filter: brightness(80%);
+}
+
+#title, #display, #clear, #divide, #multiply, #add, #subtract, #one, #two, #three, #four, #five, #six, #seven, #eight, #nine, #zero, #equals, #decimal {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

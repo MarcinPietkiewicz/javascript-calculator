@@ -16,8 +16,8 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(7, 1fr);
   background-color: #CCC;
-  height:700px;
-  width:400px;
+  height:600px;
+  width:350px;
   border-radius: 15px;
   font-weight:900;
   font-size:1.5em;

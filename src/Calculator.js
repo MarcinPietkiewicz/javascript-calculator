@@ -1,4 +1,5 @@
 import React from "react";
+import { evaluate } from 'mathjs';
 
 class Calculator extends React.Component {
   constructor(props) {
@@ -16,8 +17,8 @@ class Calculator extends React.Component {
       <div className="Calculator">
         <div id="title">ReactJS Calculator</div>
         <div id="display-screen">
-          {/* <div id="display-result">34+56=54</div> */}
-          <div id="display">{this.state.result}</div>
+          <div id="display-result">9/3+21</div>
+          <div id="display">{evaluate('9/3+21')}</div>
         </div>
         <div id="clear">AC</div>
         <div id="divide">/</div>

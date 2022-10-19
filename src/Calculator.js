@@ -4,19 +4,22 @@ import { evaluate } from 'mathjs';
 class Calculator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { expression: "500+44=544", display: "544" };
+    this.state = { exp: "500+44=544", display: "544" };
     this.clearResult = this.clearResult.bind(this);
     this.addToDisplay = this.addToDisplay.bind(this);
     this.calculate = this.calculate.bind(this);
   }
 
   clearResult() {
-    this.setState({ expression: '', display: "0" });
+    this.setState({ exp: '', display: "0" });
   }
 
   addToDisplay(symbol) {
-    if (this.state.display === '0') {
+    if (this.state.display === '0' && symbol !== ".") {
         this.setState({display: symbol})
+    }
+    else if (symbol === '.' && this.state.display.includes('.')) {
+      return
     }
     else {
     this.setState({display: this.state.display+symbol})
@@ -33,7 +36,7 @@ class Calculator extends React.Component {
       <div className="Calculator">
         <div id="title">ReactJS Calculator</div>
         <div id="display-screen">
-          <div id="display-result">{this.state.expression}</div>
+          <div id="display-result">{this.state.exp}</div>
           <div id="display">{this.state.display}</div>
         </div>
         <div id="clear" onClick={this.clearResult}>AC</div>

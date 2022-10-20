@@ -1,5 +1,5 @@
 import React from "react";
-import { evaluate, numberDependencies } from "mathjs";
+import { evaluate } from "mathjs";
 
 const operators = ["+", "-", "*", "/"];
 const nonZeroNums = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -19,8 +19,8 @@ class Calculator extends React.Component {
   }
 
   addToExp(symbol) {
-    // ***************************** case: display 0
 
+    // ***************************** case: display 0
     if (this.state.display === "0") {
       // dot
       if (symbol === ".") {
@@ -53,8 +53,17 @@ class Calculator extends React.Component {
 
     // ***************************** case: display is one of operator
     else if (operators.includes(this.state.display)) {
+      // operators - reset operator if there are already two consecutive in the expression
+      if (operators.includes(symbol) && operators.includes(this.state.exp[this.state.exp.length-1]) && operators.includes(this.state.exp[this.state.exp.length-2])) {
+        this.setState({display: symbol, exp: this.state.exp.slice(0,-2)+symbol})
+      }
+
+
+       // operators - subtraction operator ok after all but check
+     else if (symbol === '-' && operators.includes(this.state.display)){
+      this.setState({display: symbol, exp:this.state.exp+symbol})
       // another operator
-      if (operators.includes(symbol)) {
+    } else if (operators.includes(symbol)) {
         this.setState({ display: symbol, exp: this.state.exp.slice(0, -1) + symbol });
       }
       // dot
@@ -82,7 +91,7 @@ class Calculator extends React.Component {
       // operators - special case - new operation after equals in expression
     } else if (operators.includes(symbol) && this.state.exp.includes("=")) {
       this.setState({ display: symbol, exp: this.state.exp.split("=")[1] + symbol });
-      // operators case
+    // operators case
     } else if (operators.includes(symbol)) {
       this.setState({ display: symbol, exp: this.state.exp + symbol });
     }
@@ -94,8 +103,14 @@ class Calculator extends React.Component {
     if (this.state.exp.includes("=")) {
       return;
     }
+    // check for two operators in the end of the expression - remove them and evaluate
+    if (operators.includes(this.state.display) && operators.includes(this.state.exp[this.state.exp.length-2])) {
+      result = Math.trunc(evaluate(this.state.exp.slice(0, -2)) * 1000000) / 1000000;
+      this.setState({ display: result, exp: exp.slice(0, -2) + "=" + result });
+    }
+
     // check if display is operator remove it and calculate the rest of the exp
-    if (operators.includes(this.state.display)) {
+    else if (operators.includes(this.state.display)) {
       result = Math.trunc(evaluate(this.state.exp.slice(0, -1)) * 1000000) / 1000000;
       this.setState({ display: result, exp: exp.slice(0, -1) + "=" + result });
     } else {
